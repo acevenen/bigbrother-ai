@@ -17,6 +17,12 @@ export default function Home() {
             Directory
           </Link>
           <Link
+            href="/chat"
+            className="text-white/50 hover:text-white text-sm transition-colors duration-200 tracking-wide"
+          >
+            Big Brother
+          </Link>
+          <Link
             href="/verify"
             className="text-white/50 hover:text-white text-sm transition-colors duration-200 tracking-wide"
           >

@@ -37,15 +37,6 @@ export default function MapPage() {
       mapInstance = map;
 
       map.on("load", () => {
-        // Shift background and water toward deep green
-        try {
-          map.setPaintProperty("background", "background-color", "#040e07");
-          map.setPaintProperty("water", "fill-color", "#051a09");
-          map.setPaintProperty("water", "fill-opacity", 0.9);
-        } catch {
-          // layer names differ between style versions — skip silently
-        }
-
         alumni
           .filter((a) => a.coordinates)
           .forEach((alum) => {

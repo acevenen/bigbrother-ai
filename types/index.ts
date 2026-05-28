@@ -7,4 +7,6 @@ export interface Alumni {
   bio: string;
   accomplishments: string;
   location: string;
+  college?: string;
+  coordinates?: [number, number]; // [longitude, latitude]
 }

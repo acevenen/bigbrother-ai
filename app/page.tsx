@@ -23,6 +23,12 @@ export default function Home() {
             Big Brother
           </Link>
           <Link
+            href="/map"
+            className="text-white/50 hover:text-white text-sm transition-colors duration-200 tracking-wide"
+          >
+            Map
+          </Link>
+          <Link
             href="/verify"
             className="text-white/50 hover:text-white text-sm transition-colors duration-200 tracking-wide"
           >

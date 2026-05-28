@@ -10,6 +10,34 @@ const GREETING: Message = {
     "Hey brother. I'm Big Brother — an alum who's been where you are. Whether you need career advice, want to connect with the network, or just want to talk to someone who gets it — I'm here. What's on your mind?",
 };
 
+const RATE_LIMIT_KEY = "bb_daily_limit";
+const DAILY_MAX = 10;
+
+function getTodayStr(): string {
+  const d = new Date();
+  return `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+}
+
+function getStoredLimit(): { count: number; day: string } {
+  try {
+    const raw = localStorage.getItem(RATE_LIMIT_KEY);
+    if (!raw) return { count: 0, day: "" };
+    return JSON.parse(raw);
+  } catch {
+    return { count: 0, day: "" };
+  }
+}
+
+function checkAndIncrement(): { allowed: boolean; newCount: number } {
+  const today = getTodayStr();
+  const stored = getStoredLimit();
+  const count = stored.day === today ? stored.count : 0;
+  if (count >= DAILY_MAX) return { allowed: false, newCount: count };
+  const newCount = count + 1;
+  localStorage.setItem(RATE_LIMIT_KEY, JSON.stringify({ count: newCount, day: today }));
+  return { allowed: true, newCount };
+}
+
 function TypingIndicator() {
   return (
     <div className="flex gap-3 items-end">
@@ -72,9 +100,18 @@ export default function ChatPage() {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [limited, setLimited] = useState(false);
 
   const bottomRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    const today = getTodayStr();
+    const stored = getStoredLimit();
+    if (stored.day === today && stored.count >= DAILY_MAX) {
+      setLimited(true);
+    }
+  }, []);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -99,6 +136,12 @@ export default function ChatPage() {
   const submit = useCallback(async () => {
     const trimmed = input.trim();
     if (!trimmed || isLoading) return;
+
+    const { allowed, newCount } = checkAndIncrement();
+    if (!allowed) {
+      setLimited(true);
+      return;
+    }
 
     const userMessage: Message = { role: "user", content: trimmed };
     const next = [...messages, userMessage];
@@ -138,6 +181,7 @@ export default function ChatPage() {
       setError("Something went wrong on my end, brother. Try again.");
     } finally {
       setIsLoading(false);
+      if (newCount >= DAILY_MAX) setLimited(true);
     }
   }, [input, isLoading, messages]);
 
@@ -182,6 +226,12 @@ export default function ChatPage() {
           >
             Directory
           </Link>
+          <Link
+            href="/map"
+            className="text-white/35 hover:text-white text-sm transition-colors duration-200 tracking-wide"
+          >
+            Map
+          </Link>
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_6px_#34d399]" />
             <span className="text-white/35 text-xs">Online</span>
@@ -224,45 +274,68 @@ export default function ChatPage() {
         <div ref={bottomRef} />
       </div>
 
-      {/* ── Input Bar ───────────────────────────────── */}
-      <div className="flex-shrink-0 border-t border-white/[0.06] bg-[#040e07]/95 backdrop-blur-sm px-4 md:px-6 py-4">
-        <div className="flex items-end gap-3 max-w-3xl mx-auto">
-          <textarea
-            ref={textareaRef}
-            value={input}
-            onChange={handleInputChange}
-            onKeyDown={handleKeyDown}
-            rows={1}
-            disabled={isLoading}
-            placeholder="Say something, brother…"
-            className="flex-1 resize-none overflow-hidden bg-[#06120a] border border-white/[0.08] rounded-2xl px-4 py-3 text-white text-sm placeholder-white/25 focus:outline-none focus:border-[#c9a84c]/30 transition-colors duration-200 disabled:opacity-50 leading-relaxed"
-            style={{ minHeight: "44px", maxHeight: "120px" }}
-          />
-          <button
-            onClick={submit}
-            disabled={!input.trim() || isLoading}
-            className="flex-shrink-0 w-11 h-11 rounded-full bg-[#c9a84c] hover:bg-[#e4c56a] disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center group"
-            aria-label="Send message"
-          >
+      {/* ── Input Bar / Rate Limit ───────────────────── */}
+      {limited ? (
+        <div className="flex-shrink-0 border-t border-white/[0.06] bg-[#040e07]/95 backdrop-blur-sm px-4 md:px-6 py-5">
+          <div className="max-w-3xl mx-auto flex items-center justify-center gap-3">
             <svg
-              className="w-4 h-4 text-[#040e07] translate-x-px group-hover:translate-x-0.5 transition-transform duration-150"
+              className="w-4 h-4 text-[#c9a84c]/40 flex-shrink-0"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
-              strokeWidth={2.5}
+              strokeWidth={1.5}
             >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"
+                d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"
               />
             </svg>
-          </button>
+            <p className="text-white/35 text-sm tracking-wide">
+              You&apos;ve reached your limit for today, brother. Come back tomorrow.
+            </p>
+          </div>
         </div>
-        <p className="text-center text-white/15 text-[0.6rem] tracking-widest uppercase mt-3">
-          Enter to Learn · Leave to Serve
-        </p>
-      </div>
+      ) : (
+        <div className="flex-shrink-0 border-t border-white/[0.06] bg-[#040e07]/95 backdrop-blur-sm px-4 md:px-6 py-4">
+          <div className="flex items-end gap-3 max-w-3xl mx-auto">
+            <textarea
+              ref={textareaRef}
+              value={input}
+              onChange={handleInputChange}
+              onKeyDown={handleKeyDown}
+              rows={1}
+              disabled={isLoading}
+              placeholder="Say something, brother…"
+              className="flex-1 resize-none overflow-hidden bg-[#06120a] border border-white/[0.08] rounded-2xl px-4 py-3 text-white text-sm placeholder-white/25 focus:outline-none focus:border-[#c9a84c]/30 transition-colors duration-200 disabled:opacity-50 leading-relaxed"
+              style={{ minHeight: "44px", maxHeight: "120px" }}
+            />
+            <button
+              onClick={submit}
+              disabled={!input.trim() || isLoading}
+              className="flex-shrink-0 w-11 h-11 rounded-full bg-[#c9a84c] hover:bg-[#e4c56a] disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center group"
+              aria-label="Send message"
+            >
+              <svg
+                className="w-4 h-4 text-[#040e07] translate-x-px group-hover:translate-x-0.5 transition-transform duration-150"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2.5}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"
+                />
+              </svg>
+            </button>
+          </div>
+          <p className="text-center text-white/15 text-[0.6rem] tracking-widest uppercase mt-3">
+            Enter to Learn · Leave to Serve
+          </p>
+        </div>
+      )}
 
     </div>
   );

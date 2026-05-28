@@ -175,9 +175,17 @@ export default function ChatPage() {
           </span>
         </div>
 
-        <div className="flex items-center gap-2">
-          <div className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_6px_#34d399]" />
-          <span className="text-white/35 text-xs">Online</span>
+        <div className="flex items-center gap-4">
+          <Link
+            href="/directory"
+            className="text-white/35 hover:text-white text-sm transition-colors duration-200 tracking-wide"
+          >
+            Directory
+          </Link>
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_6px_#34d399]" />
+            <span className="text-white/35 text-xs">Online</span>
+          </div>
         </div>
       </header>
 

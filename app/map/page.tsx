@@ -1,24 +1,31 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { alumni } from "@/data/alumni";
 
 export default function MapPage() {
   const mapContainer = useRef<HTMLDivElement>(null);
-  const mapRef = useRef<{ remove: () => void } | null>(null);
+  const mapRef = useRef<{ remove: () => void; resize: () => void } | null>(null);
+  const [tokenMissing, setTokenMissing] = useState(false);
 
   useEffect(() => {
     if (!mapContainer.current || mapRef.current) return;
 
     const token = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
+    console.log("[map] token present:", !!token, "| first 10 chars:", token?.slice(0, 10));
+
     if (!token) {
-      console.error("NEXT_PUBLIC_MAPBOX_TOKEN is not set");
+      console.error("[map] NEXT_PUBLIC_MAPBOX_TOKEN is not set — map cannot initialize");
+      setTokenMissing(true);
       return;
     }
 
-    let mapInstance: { remove: () => void } | null = null;
+    const container = mapContainer.current;
+    console.log("[map] container size:", container.offsetWidth, "x", container.offsetHeight);
+
+    let mapInstance: { remove: () => void; resize: () => void } | null = null;
 
     import("mapbox-gl").then((mod) => {
       if (!mapContainer.current) return;
@@ -39,7 +46,15 @@ export default function MapPage() {
       mapRef.current = map;
       mapInstance = map;
 
+      map.on("error", (e: unknown) => {
+        console.error("[map] Mapbox GL error:", e);
+      });
+
       map.on("load", () => {
+        console.log("[map] loaded successfully");
+        // Force re-measure in case container was 0px at init time
+        map.resize();
+
         alumni
           .filter((a) => a.coordinates)
           .forEach((alum) => {
@@ -121,7 +136,8 @@ export default function MapPage() {
   }, []);
 
   return (
-    <div className="fixed inset-0 flex flex-col bg-[#040e07]">
+    // Inline styles own the entire height chain — bypasses any Tailwind CSS ordering issues
+    <div style={{ position: "fixed", inset: 0, display: "flex", flexDirection: "column", background: "#040e07" }}>
 
       {/* ── Nav ─────────────────────────────────────── */}
       <nav className="flex-shrink-0 flex items-center justify-between px-6 md:px-12 py-5 border-b border-white/[0.06] bg-[#040e07]/95 backdrop-blur-sm z-10">
@@ -154,8 +170,21 @@ export default function MapPage() {
       </nav>
 
       {/* ── Map ─────────────────────────────────────── */}
-      <div className="relative flex-1 min-h-0">
-        <div ref={mapContainer} className="w-full h-full" />
+      <div style={{ flex: 1, position: "relative", minHeight: 0 }}>
+
+        {tokenMissing && (
+          <div className="absolute inset-0 flex items-center justify-center z-20">
+            <p className="text-red-400 text-sm font-mono">
+              NEXT_PUBLIC_MAPBOX_TOKEN is not set — check Vercel environment variables
+            </p>
+          </div>
+        )}
+
+        {/* Map container: inline styles guarantee Mapbox reads a real pixel size */}
+        <div
+          ref={mapContainer}
+          style={{ position: "absolute", top: 0, right: 0, bottom: 0, left: 0 }}
+        />
 
         {/* Legend */}
         <div className="absolute bottom-6 left-6 bg-[#040e07]/90 border border-white/[0.08] px-4 py-3 z-10 pointer-events-none">

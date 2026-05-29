@@ -154,8 +154,8 @@ export default function MapPage() {
       </nav>
 
       {/* ── Map ─────────────────────────────────────── */}
-      <div className="relative flex-1">
-        <div ref={mapContainer} className="absolute inset-0" />
+      <div className="relative flex-1 min-h-0">
+        <div ref={mapContainer} className="w-full h-full" />
 
         {/* Legend */}
         <div className="absolute bottom-6 left-6 bg-[#040e07]/90 border border-white/[0.08] px-4 py-3 z-10 pointer-events-none">

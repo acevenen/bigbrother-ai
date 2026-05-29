@@ -11,8 +11,10 @@ export const alumni: Alumni[] = [
     accomplishments:
       "Led the rebuild of Stripe's real-time reconciliation engine — now processing $2B+ daily. Open-source contributor to three widely-used Node.js libraries. Mentors first-gen engineers through Code2040.",
     location: "San Francisco, CA",
-    college: "Cal Poly SLO → Stripe, SF",
-    coordinates: [-122.3948, 37.7851],
+    college: "Cal Poly San Luis Obispo",
+    schoolName: "Cal Poly San Luis Obispo",
+    coordinates: [-120.6596, 35.3050],
+    enrollmentStatus: "graduated",
   },
   {
     id: "kevin-obrien",
@@ -24,8 +26,10 @@ export const alumni: Alumni[] = [
     accomplishments:
       "Closed two fintech Series B deals totaling $94M AUM. Forbes 30 Under 30 nominee (2024). Co-founded the DLS Alumni Finance Network — 90+ members and growing.",
     location: "Menlo Park, CA",
-    college: "UC Berkeley Haas → a16z, Menlo Park",
-    coordinates: [-122.1826, 37.4530],
+    college: "UC Berkeley Haas",
+    schoolName: "UC Berkeley",
+    coordinates: [-122.2595, 37.8721],
+    enrollmentStatus: "graduated",
   },
   {
     id: "diego-reyes",
@@ -38,7 +42,9 @@ export const alumni: Alumni[] = [
       "First-author on a sports injury prevention study in AJSM. UCSF Dean's Merit Scholarship recipient. Presented research at the American College of Sports Medicine annual conference.",
     location: "San Francisco, CA",
     college: "UCSF School of Medicine",
+    schoolName: "UCSF",
     coordinates: [-122.4578, 37.7631],
+    enrollmentStatus: "enrolled",
   },
   {
     id: "tyler-nakamura",
@@ -51,7 +57,9 @@ export const alumni: Alumni[] = [
       "4x NCS Playoffs, DLS Tennis captain. Summa cum laude, UC Davis Political Science. Published op-ed in the Sacramento Bee on criminal justice reform that got picked up statewide.",
     location: "Berkeley, CA",
     college: "UC Berkeley School of Law",
+    schoolName: "UC Berkeley",
     coordinates: [-122.2595, 37.8721],
+    enrollmentStatus: "enrolled",
   },
   {
     id: "adrian-santos",
@@ -64,7 +72,9 @@ export const alumni: Alumni[] = [
       "YouTube channel The Santos Cut — 75k subscribers, 4M+ lifetime views. Short film 'Locura' screened at SF IndieFest 2024. Cinematography credits on two Netflix-commissioned short documentaries.",
     location: "Los Angeles, CA",
     college: "USC School of Cinematic Arts",
+    schoolName: "USC",
     coordinates: [-118.2851, 34.0224],
+    enrollmentStatus: "graduated",
   },
   {
     id: "lucas-ferreira",
@@ -76,7 +86,9 @@ export const alumni: Alumni[] = [
     accomplishments:
       "Raised $75K pre-seed from East Bay angel investors. 200+ active users in first six months. Won East Bay Young Innovators Award (2025). DLS Valedictorian, Class of 2024.",
     location: "Walnut Creek, CA",
-    college: "UC Berkeley (Deferred) → Prep House",
-    coordinates: [-122.0652, 37.9101],
+    college: "UC Berkeley (Deferred)",
+    schoolName: "UC Berkeley",
+    coordinates: [-122.2595, 37.8721],
+    enrollmentStatus: "enrolled",
   },
 ];

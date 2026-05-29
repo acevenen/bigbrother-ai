@@ -13,7 +13,10 @@ export default function MapPage() {
     if (!mapContainer.current || mapRef.current) return;
 
     const token = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
-    if (!token) return;
+    if (!token) {
+      console.error("NEXT_PUBLIC_MAPBOX_TOKEN is not set");
+      return;
+    }
 
     let mapInstance: { remove: () => void } | null = null;
 

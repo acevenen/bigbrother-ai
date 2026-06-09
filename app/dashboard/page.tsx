@@ -19,15 +19,15 @@ export default function DashboardPage() {
   useEffect(() => {
     const raw = localStorage.getItem("bb_user");
     if (!raw) {
-      router.replace("/verify");
+      router.replace("/");
       return;
     }
     try {
       const parsed: StoredUser = JSON.parse(raw);
-      if (!parsed.verified) { router.replace("/verify"); return; }
+      if (!parsed.verified) { router.replace("/"); return; }
       setUser(parsed);
     } catch {
-      router.replace("/verify");
+      router.replace("/");
     }
   }, [router]);
 

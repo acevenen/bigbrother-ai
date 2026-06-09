@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { alumni } from "@/data/alumni";
@@ -283,18 +284,33 @@ function SchoolPanel({ school, x, y, containerW, containerH, onClose }: PanelPro
 // ── Main page ─────────────────────────────────────────────────────────────────
 
 export default function MapPage() {
+  const router = useRouter();
   const mapContainer = useRef<HTMLDivElement>(null);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const mapRef = useRef<any>(null);
   const selectedRef = useRef<SchoolGroup | null>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
+  const [ready, setReady] = useState(false);
   const [tokenMissing, setTokenMissing] = useState(false);
   const [tooltip, setTooltip] = useState<{ name: string; x: number; y: number } | null>(null);
   const [panel, setPanel] = useState<{ school: SchoolGroup; x: number; y: number } | null>(null);
   const [containerSize, setContainerSize] = useState({ w: 0, h: 0 });
 
   useEffect(() => {
+    const raw = localStorage.getItem("bb_user");
+    if (!raw) { router.replace("/"); return; }
+    try {
+      const parsed = JSON.parse(raw);
+      if (!parsed.verified) { router.replace("/"); return; }
+      setReady(true);
+    } catch {
+      router.replace("/");
+    }
+  }, [router]);
+
+  useEffect(() => {
+    if (!ready) return;
     if (!mapContainer.current || mapRef.current) return;
 
     const token = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
@@ -427,7 +443,9 @@ export default function MapPage() {
       mapRef.current?.remove();
       mapRef.current = null;
     };
-  }, []);
+  }, [ready]);
+
+  if (!ready) return null;
 
   return (
     <div

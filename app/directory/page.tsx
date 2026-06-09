@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { alumni } from "@/data/alumni";
 import type { Alumni } from "@/types/index";
@@ -222,9 +223,23 @@ function FilterPill({
 // ── Page ────────────────────────────────────────────────────────────────────
 
 export default function DirectoryPage() {
+  const router = useRouter();
+  const [ready, setReady] = useState(false);
   const [industryFilter, setIndustryFilter] = useState("All");
   const [yearFilter, setYearFilter] = useState("All");
   const [activeAlum, setActiveAlum] = useState<Alumni | null>(null);
+
+  useEffect(() => {
+    const raw = localStorage.getItem("bb_user");
+    if (!raw) { router.replace("/"); return; }
+    try {
+      const parsed = JSON.parse(raw);
+      if (!parsed.verified) { router.replace("/"); return; }
+      setReady(true);
+    } catch {
+      router.replace("/");
+    }
+  }, [router]);
 
   const filtered = useMemo(() => {
     return alumni.filter((a) => {
@@ -235,6 +250,8 @@ export default function DirectoryPage() {
       return matchIndustry && matchYear;
     });
   }, [industryFilter, yearFilter]);
+
+  if (!ready) return null;
 
   return (
     <main className="min-h-screen bg-[#040e07] text-white">

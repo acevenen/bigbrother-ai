@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 
 interface FormState {
@@ -97,6 +97,14 @@ export default function ApplyPage() {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [serverError, setServerError] = useState("");
+  const [appCount, setAppCount] = useState<number | null>(null);
+
+  useEffect(() => {
+    fetch("/api/applications")
+      .then((r) => r.json())
+      .then((d) => setAppCount(d.count))
+      .catch(() => {});
+  }, []);
 
   const set = (field: keyof FormState) => (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -150,6 +158,10 @@ export default function ApplyPage() {
       });
       if (res.ok) {
         setSubmitted(true);
+        fetch("/api/applications", { method: "POST" })
+          .then((r) => r.json())
+          .then((d) => setAppCount(d.count))
+          .catch(() => {});
       } else {
         setServerError("Something went wrong. Please try again.");
       }
@@ -182,6 +194,13 @@ export default function ApplyPage() {
       {/* Body */}
       <div className="flex-1 flex items-start justify-center px-4 py-14">
         <div className="w-full max-w-lg">
+
+          {/* Application counter */}
+          {appCount !== null && appCount > 0 && (
+            <p className="text-center text-[#c9a84c]/70 text-[0.65rem] tracking-[0.3em] uppercase mb-6">
+              {appCount} alumni {appCount === 1 ? "has" : "have"} applied
+            </p>
+          )}
 
           {/* Header */}
           <div className="mb-8 text-center">

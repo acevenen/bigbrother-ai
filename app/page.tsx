@@ -74,6 +74,13 @@ export default function Home() {
           </span>
         </Link>
 
+        <Link
+          href="/apply"
+          className="text-white/30 hover:text-[#c9a84c] text-[0.7rem] tracking-[0.25em] uppercase transition-colors duration-200 mt-4"
+        >
+          Alumni? Apply here →
+        </Link>
+
         {/* Scroll hint */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 text-white/20 animate-bounce">
           <span className="text-[0.6rem] tracking-[0.3em] uppercase">Scroll</span>

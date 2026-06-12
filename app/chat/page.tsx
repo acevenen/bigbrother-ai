@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import type { Message } from "@/types/chat";
 
@@ -97,7 +96,6 @@ function UserBubble({ content }: { content: string }) {
 }
 
 export default function ChatPage() {
-  const router = useRouter();
   const [ready, setReady] = useState(false);
   const [messages, setMessages] = useState<Message[]>([GREETING]);
   const [input, setInput] = useState("");
@@ -109,16 +107,8 @@ export default function ChatPage() {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
-    const raw = localStorage.getItem("bb_user");
-    if (!raw) { router.replace("/"); return; }
-    try {
-      const parsed = JSON.parse(raw);
-      if (!parsed.verified) { router.replace("/"); return; }
-      setReady(true);
-    } catch {
-      router.replace("/");
-    }
-  }, [router]);
+    setReady(true);
+  }, []);
 
   useEffect(() => {
     const today = getTodayStr();

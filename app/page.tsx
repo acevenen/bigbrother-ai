@@ -10,7 +10,7 @@ export default function Home() {
           Brotherhood Buddy
         </span>
         <Link
-          href="/verify"
+          href="/chat"
           className="text-white/50 hover:text-white text-sm transition-colors duration-200 tracking-wide"
         >
           Apply to Join →
@@ -65,7 +65,7 @@ export default function Home() {
 
         {/* CTA */}
         <Link
-          href="/verify"
+          href="/chat"
           className="group inline-flex items-center gap-3 bg-[#c9a84c] text-[#040e07] font-bold px-10 py-4 text-[0.8rem] tracking-[0.2em] uppercase hover:bg-[#e4c56a] transition-colors duration-200"
         >
           Join the Brotherhood
@@ -226,7 +226,7 @@ export default function Home() {
         </p>
 
         <Link
-          href="/verify"
+          href="/chat"
           className="group relative inline-flex items-center gap-3 bg-[#c9a84c] text-[#040e07] font-bold px-12 py-5 text-[0.8rem] tracking-[0.2em] uppercase hover:bg-[#e4c56a] transition-colors duration-200 mb-14"
         >
           Join the Brotherhood

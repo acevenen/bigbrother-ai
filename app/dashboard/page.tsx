@@ -91,7 +91,7 @@ export default function DashboardPage() {
           </p>
 
           {/* CTA cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-white/[0.07] w-full max-w-md">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-px bg-white/[0.07] w-full max-w-2xl">
 
             <Link
               href="/chat"
@@ -130,6 +130,27 @@ export default function DashboardPage() {
               </div>
               <span className="text-[#c9a84c]/50 text-[0.6rem] tracking-[0.2em] uppercase mt-auto">
                 Browse Roster →
+              </span>
+            </Link>
+
+            <Link
+              href="/map"
+              className="group bg-[#040e07] hover:bg-[#06120a] transition-colors duration-300 p-7 flex flex-col gap-3 text-left"
+            >
+              <div className="w-10 h-10 border border-[#c9a84c]/30 group-hover:border-[#c9a84c]/60 flex items-center justify-center transition-colors">
+                <svg className="w-4 h-4 text-[#c9a84c]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                </svg>
+              </div>
+              <div>
+                <p className="text-white font-bold text-sm">College Map</p>
+                <p className="text-white/35 text-xs mt-0.5 leading-relaxed">
+                  See where brothers landed, campus by campus.
+                </p>
+              </div>
+              <span className="text-[#c9a84c]/50 text-[0.6rem] tracking-[0.2em] uppercase mt-auto">
+                Explore Map →
               </span>
             </Link>
 

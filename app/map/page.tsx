@@ -479,10 +479,10 @@ export default function MapPage() {
             Big Brother
           </Link>
           <Link
-            href="/verify"
+            href="/dashboard"
             className="text-white/40 hover:text-white text-sm transition-colors duration-200 tracking-wide"
           >
-            Sign In →
+            Dashboard
           </Link>
         </div>
       </nav>

@@ -40,3 +40,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 .env.local
+
+# local-only tooling and session artifacts
+.claude/
+verify-screenshots/
+music-video/

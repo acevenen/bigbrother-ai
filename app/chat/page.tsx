@@ -254,7 +254,7 @@ export default function ChatPage() {
           <div className="flex items-center gap-2">
             <div className="w-6 h-px bg-[#c9a84c]/20" />
             <span className="text-white/20 text-[0.6rem] tracking-[0.3em] uppercase">
-              Lancer Network · Verified
+              Spartan Network · Verified
             </span>
             <div className="w-6 h-px bg-[#c9a84c]/20" />
           </div>

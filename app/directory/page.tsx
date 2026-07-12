@@ -278,10 +278,10 @@ export default function DirectoryPage() {
             Map
           </Link>
           <Link
-            href="/verify"
+            href="/dashboard"
             className="text-white/40 hover:text-white text-sm transition-colors duration-200 tracking-wide"
           >
-            Sign In →
+            Dashboard
           </Link>
         </div>
       </nav>
@@ -298,7 +298,7 @@ export default function DirectoryPage() {
           <div className="flex items-center gap-3 mb-7">
             <div className="w-6 h-px bg-[#c9a84c]" />
             <span className="text-[#c9a84c] text-[0.62rem] tracking-[0.42em] uppercase font-medium">
-              De La Salle High School · Walnut Creek, CA
+              De La Salle High School · Concord, CA
             </span>
           </div>
 
@@ -310,7 +310,7 @@ export default function DirectoryPage() {
                 <span className="text-[#c9a84c]">Roster</span>
               </h1>
               <p className="text-white/35 text-[0.95rem] max-w-md leading-relaxed">
-                Lancers who came before you. Find them by class year or industry,
+                Spartans who came before you. Find them by class year or industry,
                 and reach out. That's what brothers do.
               </p>
             </div>

@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Brotherhood Buddy — De La Salle Alumni Network",
   description:
-    "The AI-powered alumni network for De La Salle High School Lancers. Find brothers, get advice, and stay connected — for Lancers only.",
+    "The AI-powered alumni network for De La Salle High School Spartans. Find brothers, get advice, and stay connected — for Spartans only.",
 };
 
 export default function RootLayout({

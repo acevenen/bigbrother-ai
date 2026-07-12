@@ -287,7 +287,7 @@ export default function VerifyPage() {
               <div className="w-8 h-px bg-[#c9a84c]/50" />
             </div>
             <h1 className="text-2xl font-black tracking-tight mb-2">
-              Lancers Only
+              Spartans Only
             </h1>
             <p className="text-white/35 text-sm leading-relaxed">
               Verify your connection to De La Salle<br />to join the brotherhood.

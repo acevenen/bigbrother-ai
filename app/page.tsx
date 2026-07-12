@@ -29,7 +29,7 @@ export default function Home() {
         <div className="relative flex items-center gap-3 mb-8">
           <div className="w-8 h-px bg-[#c9a84c]/60" />
           <span className="text-[#c9a84c] text-[0.65rem] tracking-[0.45em] uppercase font-medium">
-            De La Salle High School · Walnut Creek, CA
+            De La Salle High School · Concord, CA
           </span>
           <div className="w-8 h-px bg-[#c9a84c]/60" />
         </div>
@@ -60,7 +60,7 @@ export default function Home() {
         {/* Description */}
         <p className="text-white/40 text-[0.95rem] max-w-sm md:max-w-md leading-relaxed mb-10">
           An AI that knows De La Salle like you do. A verified directory of brothers
-          who&apos;ve walked the same halls. For Lancers, by Lancers.
+          who&apos;ve walked the same halls. For Spartans, by Spartans.
         </p>
 
         {/* CTA */}
@@ -112,7 +112,7 @@ export default function Home() {
         <div className="flex items-center gap-3 mb-16">
           <div className="w-6 h-px bg-[#c9a84c]" />
           <span className="text-[#c9a84c] text-[0.65rem] tracking-[0.4em] uppercase font-medium">
-            Built for Lancers
+            Built for Spartans
           </span>
         </div>
 
@@ -123,7 +123,7 @@ export default function Home() {
         </h2>
         <p className="text-white/35 max-w-xl mb-16 leading-relaxed text-[0.95rem]">
           Brotherhood Buddy brings together AI intelligence, a verified alumni directory,
-          and a members-only community — so no Lancer ever has to navigate life alone
+          and a members-only community — so no Spartan ever has to navigate life alone
           after graduation.
         </p>
 
@@ -162,7 +162,7 @@ export default function Home() {
               <h3 className="text-lg font-bold tracking-tight mb-2">Alumni Directory</h3>
               <p className="text-white/35 leading-relaxed text-sm">
                 Find brothers by grad year, industry, or city. Every profile is real,
-                every face a Lancer. One click to reach out and make the connection.
+                every face a Spartan. One click to reach out and make the connection.
               </p>
             </div>
             <div className="mt-auto pt-5 border-t border-white/[0.06]">
@@ -172,7 +172,7 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Lancers Only */}
+          {/* Spartans Only */}
           <div className="group bg-[#040e07] hover:bg-[#06120a] transition-colors duration-300 p-8 md:p-10 flex flex-col gap-5">
             <div className="w-11 h-11 border border-[#c9a84c]/30 group-hover:border-[#c9a84c]/70 flex items-center justify-center transition-colors duration-300">
               <svg className="w-5 h-5 text-[#c9a84c]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -180,7 +180,7 @@ export default function Home() {
               </svg>
             </div>
             <div>
-              <h3 className="text-lg font-bold tracking-tight mb-2">Lancers Only</h3>
+              <h3 className="text-lg font-bold tracking-tight mb-2">Spartans Only</h3>
               <p className="text-white/35 leading-relaxed text-sm">
                 This space is built on trust. Access is verified — current students and
                 alumni only. The brotherhood is real, and so is the gate that keeps it

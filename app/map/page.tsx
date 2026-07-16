@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { alumni } from "@/data/alumni";
@@ -284,7 +283,6 @@ function SchoolPanel({ school, x, y, containerW, containerH, onClose }: PanelPro
 // ── Main page ─────────────────────────────────────────────────────────────────
 
 export default function MapPage() {
-  const router = useRouter();
   const mapContainer = useRef<HTMLDivElement>(null);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const mapRef = useRef<any>(null);
@@ -298,16 +296,8 @@ export default function MapPage() {
   const [containerSize, setContainerSize] = useState({ w: 0, h: 0 });
 
   useEffect(() => {
-    const raw = localStorage.getItem("bb_user");
-    if (!raw) { router.replace("/"); return; }
-    try {
-      const parsed = JSON.parse(raw);
-      if (!parsed.verified) { router.replace("/"); return; }
-      setReady(true);
-    } catch {
-      router.replace("/");
-    }
-  }, [router]);
+    setReady(true);
+  }, []);
 
   useEffect(() => {
     if (!ready) return;
@@ -479,10 +469,10 @@ export default function MapPage() {
             Big Brother
           </Link>
           <Link
-            href="/dashboard"
+            href="/"
             className="text-white/40 hover:text-white text-sm transition-colors duration-200 tracking-wide"
           >
-            Dashboard
+            Home
           </Link>
         </div>
       </nav>

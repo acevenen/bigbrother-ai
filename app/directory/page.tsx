@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useMemo, useEffect } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { alumni } from "@/data/alumni";
 import type { Alumni } from "@/types/index";
@@ -223,23 +222,14 @@ function FilterPill({
 // ── Page ────────────────────────────────────────────────────────────────────
 
 export default function DirectoryPage() {
-  const router = useRouter();
   const [ready, setReady] = useState(false);
   const [industryFilter, setIndustryFilter] = useState("All");
   const [yearFilter, setYearFilter] = useState("All");
   const [activeAlum, setActiveAlum] = useState<Alumni | null>(null);
 
   useEffect(() => {
-    const raw = localStorage.getItem("bb_user");
-    if (!raw) { router.replace("/"); return; }
-    try {
-      const parsed = JSON.parse(raw);
-      if (!parsed.verified) { router.replace("/"); return; }
-      setReady(true);
-    } catch {
-      router.replace("/");
-    }
-  }, [router]);
+    setReady(true);
+  }, []);
 
   const filtered = useMemo(() => {
     return alumni.filter((a) => {
@@ -278,10 +268,10 @@ export default function DirectoryPage() {
             Map
           </Link>
           <Link
-            href="/dashboard"
+            href="/"
             className="text-white/40 hover:text-white text-sm transition-colors duration-200 tracking-wide"
           >
-            Dashboard
+            Home
           </Link>
         </div>
       </nav>

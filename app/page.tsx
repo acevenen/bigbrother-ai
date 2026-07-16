@@ -9,12 +9,26 @@ export default function Home() {
         <span className="text-[#c9a84c] font-bold tracking-[0.25em] text-xs uppercase">
           Brotherhood Buddy
         </span>
-        <Link
-          href="/chat"
-          className="text-white/50 hover:text-white text-sm transition-colors duration-200 tracking-wide"
-        >
-          Apply to Join →
-        </Link>
+        <div className="flex items-center gap-5 md:gap-7">
+          <Link
+            href="/directory"
+            className="text-white/50 hover:text-white text-sm transition-colors duration-200 tracking-wide"
+          >
+            Directory
+          </Link>
+          <Link
+            href="/map"
+            className="text-white/50 hover:text-white text-sm transition-colors duration-200 tracking-wide"
+          >
+            Map
+          </Link>
+          <Link
+            href="/chat"
+            className="text-white/50 hover:text-white text-sm transition-colors duration-200 tracking-wide"
+          >
+            Big Brother →
+          </Link>
+        </div>
       </nav>
 
       {/* ── Hero ────────────────────────────────────────── */}
